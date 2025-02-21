@@ -60,7 +60,7 @@ def get_all_photos(update: Update, context: CallbackContext) -> None:
 app = ApplicationBuilder().token("8014975062:AAE5zNoop2OG-osWO2EUpqAX6kUQrA7PFfg").build()
 
 app.add_handler(CommandHandler("hello", hello))
-app.add_handler(CommandHandler("allphotos", get_all_photos))
+app.add_handler(CommandHandler("all", get_all_photos))
 
 # on non command i.e message - echo the message on Telegram
 
