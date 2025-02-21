@@ -14,7 +14,7 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text(f'Hello {update.effective_user.first_name}')
+    await update.message.reply_text(f'Hello {update.effective_user.first_name}by keshava')
 
 
 #async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
