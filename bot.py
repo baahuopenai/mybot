@@ -1,6 +1,8 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes,MessageHandler, filters,CallbackContext
 import logging
+import instaloader
+import os
 
 # Enable logging
 logging.basicConfig(
@@ -26,7 +28,7 @@ async def welcome(update: Update, context: CallbackContext):
         await update.message.reply_text(f"Welcome, {member.first_name}! by keshava🎉 Radhe Radhe  @Fitoortera")
 
 
-def get_all_photos(update: Update, context: CallbackContext) -> None:
+async def get_all_photos(update: Update, context: CallbackContext) -> None:
     if len(context.args) == 0:
         update.message.reply_text("Please provide an Instagram username!")
         return
