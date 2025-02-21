@@ -25,18 +25,18 @@ async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 # on non command i.e message - echo the message on Telegram
 async def welcome(update: Update, context: CallbackContext):
     for member in update.message.new_chat_members:
-        await update.message.reply_text(f"Welcome, {member.first_name}! by keshava🎉 Radhe Radhe  @Fitoortera")
+        await update.message.reply_text(f"Welcome, {member.first_name}! by keshava🎉 Radhe Radhe send me a msg at  @Fitoortera")
 
 
-def get_all_photos(update: Update, context: CallbackContext) -> None:
+async def get_all_photos(update: Update, context: CallbackContext) -> None:
     if len(context.args) == 0:
-        update.message.reply_text("Please provide an Instagram username!")
-        return
+       await update.message.reply_text("Please provide an Instagram username!")
+       return
 
     username = context.args[0]
     try:
         # Download Instagram profile's media
-        update.message.reply_text(f"Downloading all posts from {username}...")
+        await update.message.reply_text(f"Downloading all posts from {username}...")
 
         # Download posts
         profile = instaloader.Profile.from_username(L.context, username)
@@ -51,10 +51,10 @@ def get_all_photos(update: Update, context: CallbackContext) -> None:
                         update.message.reply_photo(photo)
                     os.remove(file_path)  # Delete after sending
 
-        update.message.reply_text("✅ All posts have been sent!")
+         await update.message.reply_text("✅ All posts have been sent!")
 
     except Exception as e:
-        update.message.reply_text(f"❌ Error fetching posts: {e}")
+         await update.message.reply_text(f"❌ Error fetching posts: {e}")
 
 
 app = ApplicationBuilder().token("8014975062:AAE5zNoop2OG-osWO2EUpqAX6kUQrA7PFfg").build()
