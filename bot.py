@@ -3,6 +3,10 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes,Messag
 import logging
 import instaloader
 import os
+from transformers import pipeline
+emoji_pipe = pipeline('text-classification', model='NeelNishi/emoji-predictor')
+
+
 
 # Enable logging
 logging.basicConfig(
@@ -28,39 +32,13 @@ async def welcome(update: Update, context: CallbackContext):
         await update.message.reply_text(f"Welcome, {member.first_name}! by keshava🎉 Radhe Radhe send me a msg at  @Fitoortera")
 
 
-async def get_all_photos(update: Update, context: CallbackContext) -> None:
-    if len(context.args) == 0:
-       await update.message.reply_text("Please provide an Instagram username!")
-       return
 
-    username = context.args[0]
-    try:
-        # Download Instagram profile's media
-        await update.message.reply_text(f"Downloading all posts from {username}...")
-
-        # Download posts
-        profile = instaloader.Profile.from_username(L.context, username)
-        for post in profile.get_posts():
-            L.download_post(post, target=username)
-
-            # Find downloaded image
-            for file in os.listdir(username):
-                if file.endswith(".jpg") or file.endswith(".png"):
-                    file_path = os.path.join(username, file)
-                    with open(file_path, "rb") as photo:
-                        update.message.reply_photo(photo)
-                    os.remove(file_path)  # Delete after sending
-
-         await update.message.reply_text("✅ All posts have been sent!")
-
-    except Exception as e:
-         await update.message.reply_text(f"❌ Error fetching posts: {e}")
 
 
 app = ApplicationBuilder().token("8014975062:AAE5zNoop2OG-osWO2EUpqAX6kUQrA7PFfg").build()
 
 app.add_handler(CommandHandler("hello", hello))
-app.add_handler(CommandHandler("all", get_all_photos))
+
 
 # on non command i.e message - echo the message on Telegram
 
